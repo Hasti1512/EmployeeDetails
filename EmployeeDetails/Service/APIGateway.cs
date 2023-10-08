@@ -9,14 +9,16 @@ namespace EmployeeDetails.Service
 {
     public class APIGateway
     {
-        private string url = "http://localhost:7085/api/EmployeeAPI";
+        public IConfiguration _configuration;
         private HttpClient HttpClient = new HttpClient();
-        public APIGateway() 
+        public APIGateway(IConfiguration configuration) 
         {
-        } 
-
+            _configuration = configuration;
+        }
+      
         public List<Employee> ListEmployee()
         {
+            string url = _configuration?.GetSection("API").GetValue<string>("APIUrl");
             List<Employee> employee = new List<Employee>();
             string apiUrl = $"{url}/GetEmpData";
             if (url.Trim().Substring(0, 5).ToLower() == "https")
@@ -47,6 +49,7 @@ namespace EmployeeDetails.Service
         }
         public Employee CreateEmployee(Employee employee)
         {
+            string url = _configuration?.GetSection("API").GetValue<string>("APIUrl");
             string apiUrl = $"{url}/AddEmpData";
             if (url.Trim().Substring(0, 5).ToLower() == "https")
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -77,6 +80,7 @@ namespace EmployeeDetails.Service
         }
         public Employee GetEmployeeById(int id)
         {
+            string url = _configuration?.GetSection("API").GetValue<string>("APIUrl");
             Employee employee = new Employee();
             string apiUrl = $"{url}/GetEmpDataById?Empid={id}";
             if (url.Trim().Substring(0, 5).ToLower() == "https")
@@ -109,6 +113,7 @@ namespace EmployeeDetails.Service
 
         public void DeleteEmployee(int id)
         {
+            string url = _configuration?.GetSection("API").GetValue<string>("APIUrl");
             string apiUrl = $"{url}/DeleteEmp?id={id}";
             if (url.Trim().Substring(0, 5).ToLower() == "https")
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;

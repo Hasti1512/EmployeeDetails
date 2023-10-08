@@ -49,20 +49,17 @@ else
             <div class="form-group submit">
                 @if (Model.EmpId == 0)
                 {
-                    <input type="submit" value="Create" class="btn btn-primary" /> 
+                    <input type="submit" value="Create" class="btn btn-primary" />  <a href="@Url.Action("Index", "Employee")" class="btn btn-dark">Back</a>
                 }
                 else
                 {
-                    <input type="submit" value="Update" class="btn btn-primary" />
+                    <input type="submit" value="Update" class="btn btn-primary" />  <a href="@Url.Action("Index", "Employee")" class="btn btn-dark">Back</a>
                 }
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

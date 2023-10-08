@@ -2,16 +2,19 @@
 
 @{
     ViewData["Title"] = "Index";
+    int count = 1;
 }
 
 <h1>Employee List</h1>
-
 <p>
     <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayName("No")
+            </th>
             <th>
                 @Html.DisplayName("EmpId")
             </th>
@@ -37,6 +40,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @count
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.EmpId)
             </td>
             <td>
@@ -60,6 +66,7 @@
                     <a href="@Url.Action("Delete", "Employee", new { id = item.EmpId })" class="btn btn-danger"> <i class="fas fa-trash-alt"></i></a>
             </td>
         </tr>
+            count++;
 }
     </tbody>
 </table>
